@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Sign In — JerseyDrop{% endblock %}
+
+{% block content %}
+<div class="auth-body">
+  <h1>Sign in</h1>
+  <p>Welcome back to JerseyDrop.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-section">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" autofocus>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password">
+      </div>
+      {% if form.errors %}
+      <div class="form-error" style="margin-top:8px;">Invalid username or password.</div>
+      {% endif %}
+    </div>
+    <button type="submit" class="btn-primary" style="margin:0 0 12px;">Sign in →</button>
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+  <p style="text-align:center; font-size:14px; color:var(--text-muted);">
+    New here? <a href="{% url 'store:register' %}" style="color:#378ADD;">Create an account</a>
+  </p>
+</div>
+{% endblock %}

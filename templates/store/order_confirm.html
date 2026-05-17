@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Order Confirmed — JerseyDrop{% endblock %}
+
+{% block content %}
+<div class="confirm-body">
+  <div class="confirm-icon">✅</div>
+  <h1 class="confirm-title">Order placed!</h1>
+  <p class="confirm-sub">Thanks, {{ order.full_name }}! Order #{{ order.pk }} is confirmed.</p>
+
+  <div class="order-card">
+    {% for item in order.items.all %}
+    <div class="order-row">
+      <span>{{ item.product_name }} ({{ item.size }}) × {{ item.quantity }}</span>
+      <span>${{ item.get_subtotal }}</span>
+    </div>
+    {% endfor %}
+    <div class="order-row">
+      <span>Total paid</span>
+      <span>${{ order.total }}</span>
+    </div>
+  </div>
+
+  <a href="{% url 'store:home' %}" class="btn-primary" style="display:inline-block;width:100%;">Continue shopping</a>
+</div>
+{% endblock %}

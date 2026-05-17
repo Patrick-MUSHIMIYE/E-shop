@@ -1,0 +1,43 @@
+[
+  {"model": "store.category", "pk": 1, "fields": {"name": "NFL", "slug": "nfl"}},
+  {"model": "store.category", "pk": 2, "fields": {"name": "NBA", "slug": "nba"}},
+  {"model": "store.category", "pk": 3, "fields": {"name": "Soccer", "slug": "soccer"}},
+  {"model": "store.category", "pk": 4, "fields": {"name": "NHL", "slug": "nhl"}},
+  {"model": "store.category", "pk": 5, "fields": {"name": "College", "slug": "college"}},
+
+  {"model": "store.product", "pk": 1, "fields": {
+    "category": 1, "name": "Chiefs Home Jersey", "slug": "chiefs-home-jersey",
+    "team": "Kansas City Chiefs", "description": "Official replica home jersey with sewn-on numbers and breathable fabric.",
+    "price": "129.00", "sale_price": null, "image": "", "sizes": "S,M,L,XL,XXL",
+    "stock": 20, "is_new": true, "created_at": "2024-01-10T10:00:00Z"}},
+
+  {"model": "store.product", "pk": 2, "fields": {
+    "category": 2, "name": "Lakers City Edition", "slug": "lakers-city-edition",
+    "team": "Los Angeles Lakers", "description": "Limited city edition jersey with premium mesh fabric.",
+    "price": "124.00", "sale_price": "99.00", "image": "", "sizes": "S,M,L,XL",
+    "stock": 15, "is_new": false, "created_at": "2024-01-09T10:00:00Z"}},
+
+  {"model": "store.product", "pk": 3, "fields": {
+    "category": 3, "name": "Arsenal Home Kit 24/25", "slug": "arsenal-home-kit-2425",
+    "team": "Arsenal FC", "description": "Official 2024/25 home kit with Adidas technology.",
+    "price": "89.00", "sale_price": null, "image": "", "sizes": "S,M,L,XL,XXL",
+    "stock": 30, "is_new": true, "created_at": "2024-01-08T10:00:00Z"}},
+
+  {"model": "store.product", "pk": 4, "fields": {
+    "category": 4, "name": "Bruins Away Jersey", "slug": "bruins-away-jersey",
+    "team": "Boston Bruins", "description": "Authentic Bruins away jersey in white and gold.",
+    "price": "109.00", "sale_price": null, "image": "", "sizes": "M,L,XL",
+    "stock": 10, "is_new": true, "created_at": "2024-01-07T10:00:00Z"}},
+
+  {"model": "store.product", "pk": 5, "fields": {
+    "category": 1, "name": "Cowboys Away Jersey", "slug": "cowboys-away-jersey",
+    "team": "Dallas Cowboys", "description": "Classic Cowboys away jersey. America's team.",
+    "price": "119.00", "sale_price": "95.00", "image": "", "sizes": "S,M,L,XL,XXL",
+    "stock": 25, "is_new": false, "created_at": "2024-01-06T10:00:00Z"}},
+
+  {"model": "store.product", "pk": 6, "fields": {
+    "category": 2, "name": "Bulls Classic Jersey", "slug": "bulls-classic-jersey",
+    "team": "Chicago Bulls", "description": "Timeless Bulls red jersey. A wardrobe essential.",
+    "price": "99.00", "sale_price": null, "image": "", "sizes": "S,M,L,XL",
+    "stock": 18, "is_new": false, "created_at": "2024-01-05T10:00:00Z"}}
+]

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Create Account — JerseyDrop{% endblock %}
+
+{% block content %}
+<div class="auth-body">
+  <h1>Create account</h1>
+  <p>Join JerseyDrop to track orders and save favourites.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-section">
+      {% for field in form %}
+      <div class="form-group">
+        <label>{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<div class="form-error">{{ field.errors.0 }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn-primary" style="margin: 0 0 12px;">Create account →</button>
+  </form>
+  <p style="text-align:center; font-size:14px; color:var(--text-muted);">
+    Already have an account? <a href="{% url 'login' %}" style="color:#378ADD;">Sign in</a>
+  </p>
+</div>
+{% endblock %}

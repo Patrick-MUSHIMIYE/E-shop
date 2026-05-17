@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }} — JerseyDrop{% endblock %}
+
+{% block content %}
+<div class="detail-img">
+  {% if product.image %}
+  <img src="{{ product.image.url }}" alt="{{ product.name }}">
+  {% else %}
+  🎽
+  {% endif %}
+  {% if product.is_new %}<span class="product-img__badge product-img__badge--new" style="position:absolute;top:12px;left:12px">New</span>{% endif %}
+  {% if product.sale_price %}<span class="product-img__badge product-img__badge--sale" style="position:absolute;top:12px;left:12px">-{{ product.discount_percent }}%</span>{% endif %}
+</div>
+
+<div class="detail-body">
+  <div class="detail-team">{{ product.team }} &bull; {{ product.category }}</div>
+  <h1 class="detail-name">{{ product.name }}</h1>
+
+  <div class="detail-price-row">
+    <span class="detail-price">${{ product.get_display_price }}</span>
+    {% if product.sale_price %}
+    <span class="detail-price--old">${{ product.price }}</span>
+    <span class="detail-discount">{{ product.discount_percent }}% off</span>
+    {% endif %}
+  </div>
+
+  {% if product.description %}
+  <p class="detail-desc">{{ product.description }}</p>
+  {% endif %}
+
+  <form method="post" action="{% url 'store:cart_add' product.pk %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ product.get_absolute_url }}">
+
+    <div class="size-label">Select size</div>
+    <div class="size-grid" id="sizeGrid">
+      {% for size in product.get_sizes_list %}
+      <button type="button" class="size-btn {% if forloop.first %}active{% endif %}"
+              onclick="selectSize(this, '{{ size }}')">{{ size }}</button>
+      {% endfor %}
+      <input type="hidden" name="size" id="selectedSize" value="{{ product.get_sizes_list.0 }}">
+    </div>
+
+    <button type="submit" class="add-to-cart-btn">
+      <i class="ti ti-shopping-cart"></i> Add to Cart
+    </button>
+  </form>
+</div>
+
+{% if related %}
+<div class="related">
+  <h2>You may also like</h2>
+  <div class="related-scroll">
+    {% for item in related %}
+    <a href="{{ item.get_absolute_url }}" class="related-card">
+      <div class="related-card__img">
+        {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" style="width:100%;height:100%;object-fit:cover;">
+        {% else %}🎽{% endif %}
+      </div>
+      <div class="related-card__info">
+        <div class="related-card__name">{{ item.name }}</div>
+        <div class="related-card__price">${{ item.get_display_price }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% block extra_js %}
+<script>
+function selectSize(btn, size) {
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('selectedSize').value = size;
+}
+</script>
+{% endblock %}
+{% endblock %}

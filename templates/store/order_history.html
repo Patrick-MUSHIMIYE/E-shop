@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}My Orders — JerseyDrop{% endblock %}
+
+{% block content %}
+<div class="order-history">
+  <h1>My Orders</h1>
+  {% for order in orders %}
+  <div class="order-hist-card">
+    <div class="order-hist-top">
+      <span class="order-hist-id">Order #{{ order.pk }}</span>
+      <span class="status-pill status-pill--{{ order.status }}">{{ order.get_status_display }}</span>
+    </div>
+    <div style="font-size:13px; color:var(--text-muted); margin-bottom:6px;">{{ order.created_at|date:"N j, Y" }}</div>
+    {% for item in order.items.all %}
+    <div style="font-size:13px; margin-bottom:2px;">{{ item.product_name }} ({{ item.size }}) × {{ item.quantity }}</div>
+    {% endfor %}
+    <div style="font-size:15px; font-weight:600; margin-top:8px; font-family:var(--font-display)">Total: ${{ order.total }}</div>
+  </div>
+  {% empty %}
+  <div style="text-align:center; padding:48px 0; color:var(--text-muted);">
+    <i class="ti ti-package" style="font-size:48px; display:block; margin-bottom:12px;"></i>
+    No orders yet.
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Shop Jerseys — JerseyDrop{% endblock %}
+
+{% block content %}
+{% if not selected_category %}
+<div class="hero">
+  <div class="hero__text">
+    <div class="hero__tag">🔥 New Arrivals</div>
+    <div class="hero__title">Game-day<br><em>Jerseys.</em><br>Fresh kits.</div>
+  </div>
+  <div class="hero__icon">🏈</div>
+</div>
+{% endif %}
+
+<div class="section">
+  <div class="section__header">
+    <span class="section__title">{% if selected_category %}{{ selected_category.name }}{% else %}All Jerseys{% endif %}</span>
+  </div>
+
+  <div class="cat-scroll">
+    <a href="{% url 'store:product_list' %}" class="cat-chip {% if not selected_category %}active{% endif %}">All</a>
+    {% for cat in categories %}
+    <a href="{{ cat.get_absolute_url }}" class="cat-chip {% if selected_category.slug == cat.slug %}active{% endif %}">{{ cat.name }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="product-grid">
+  {% for product in products %}
+  {% cycle 'blue' 'red' 'green' 'amber' as colors silent %}
+  <a href="{{ product.get_absolute_url }}" class="product-card">
+    <div class="product-img product-img--{{ colors }}">
+      <div class="product-img__inner">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img__img">
+        {% else %}
+        🎽
+        {% endif %}
+      </div>
+      {% if product.is_new %}<span class="product-img__badge product-img__badge--new">New</span>{% endif %}
+      {% if product.sale_price %}<span class="product-img__badge product-img__badge--sale">-{{ product.discount_percent }}%</span>{% endif %}
+    </div>
+    <div class="product-info">
+      <div class="product-name">{{ product.name }}</div>
+      <div class="product-team">{{ product.team }}</div>
+      <div class="product-footer">
+        <div>
+          <span class="product-price">${{ product.get_display_price }}</span>
+          {% if product.sale_price %}<span class="product-price--old">${{ product.price }}</span>{% endif %}
+        </div>
+        <span class="add-btn" onclick="event.preventDefault(); this.closest('a').nextElementSibling && this.closest('a').nextElementSibling.submit()">
+          <i class="ti ti-plus"></i>
+        </span>
+      </div>
+    </div>
+  </a>
+  {% empty %}
+  <div style="grid-column:1/-1; text-align:center; padding:48px 0; color:var(--text-muted);">
+    <i class="ti ti-shirt" style="font-size:48px; display:block; margin-bottom:12px;"></i>
+    No jerseys found.
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

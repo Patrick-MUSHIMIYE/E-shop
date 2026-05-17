@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>{% block title %}JerseyDrop{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+{% if messages %}
+<div class="toast-container">
+  {% for msg in messages %}
+  <div class="toast toast--{{ msg.tags }}">{{ msg }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<header class="header">
+  <div class="header__inner">
+    <a href="{% url 'store:home' %}" class="brand">JERSEY<span>DROP</span></a>
+    <nav class="header__actions">
+      <a href="{% url 'store:product_list' %}" class="icon-btn" aria-label="Browse"><i class="ti ti-search"></i></a>
+      <a href="{% url 'store:cart' %}" class="icon-btn cart-icon" aria-label="Cart">
+        <i class="ti ti-shopping-cart"></i>
+        {% if cart_count %}<span class="badge">{{ cart_count }}</span>{% endif %}
+      </a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'store:order_history' %}" class="icon-btn" aria-label="Orders"><i class="ti ti-package"></i></a>
+        <a href="{% url 'logout' %}" class="icon-btn" aria-label="Logout"><i class="ti ti-logout"></i></a>
+      {% else %}
+        <a href="{% url 'login' %}" class="icon-btn" aria-label="Login"><i class="ti ti-user"></i></a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  {% block content %}{% endblock %}
+</main>
+
+<nav class="bottom-nav">
+  <a href="{% url 'store:home' %}" class="bottom-nav__item {% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'product_list' %}active{% endif %}">
+    <i class="ti ti-home"></i><span>Home</span>
+  </a>
+  <a href="{% url 'store:product_list' %}" class="bottom-nav__item">
+    <i class="ti ti-category"></i><span>Browse</span>
+  </a>
+  <a href="{% url 'store:cart' %}" class="bottom-nav__item {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" style="position:relative">
+    <i class="ti ti-shopping-cart"></i>
+    {% if cart_count %}<span class="bottom-badge">{{ cart_count }}</span>{% endif %}
+    <span>Cart</span>
+  </a>
+  {% if user.is_authenticated %}
+  <a href="{% url 'store:order_history' %}" class="bottom-nav__item {% if request.resolver_match.url_name == 'order_history' %}active{% endif %}">
+    <i class="ti ti-package"></i><span>Orders</span>
+  </a>
+  {% else %}
+  <a href="{% url 'login' %}" class="bottom-nav__item">
+    <i class="ti ti-user"></i><span>Account</span>
+  </a>
+  {% endif %}
+</nav>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
