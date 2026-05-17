@@ -1,3 +1,3 @@
 # JerseyDrop — Django Mobile E-Shop
 
-A mobile-first jersey e-commerce platform built with Django, ready to deploy on Render.
+A mobile-first jersey e-commerce platform built with Django.
