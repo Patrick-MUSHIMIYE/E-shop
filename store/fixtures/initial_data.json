@@ -3,7 +3,7 @@
   {"model": "store.category", "pk": 2, "fields": {"name": "NBA", "slug": "nba"}},
   {"model": "store.category", "pk": 3, "fields": {"name": "Soccer", "slug": "soccer"}},
   {"model": "store.category", "pk": 4, "fields": {"name": "NHL", "slug": "nhl"}},
-  {"model": "store.category", "pk": 5, "fields": {"name": "College", "slug": "college"}},
+  {"model": "store.category", "pk": 5, "fields": {"name": "WordCup", "slug": "WordCup"}},
 
   {"model": "store.product", "pk": 1, "fields": {
     "category": 1, "name": "Chiefs Home Jersey", "slug": "chiefs-home-jersey",

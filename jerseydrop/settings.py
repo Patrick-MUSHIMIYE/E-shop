@@ -61,6 +61,9 @@ WSGI_APPLICATION = 'jerseydrop.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
+        # default=config(
+        #     'DATABASE_URL',
+        #     default='postgres://postgres:postgres@localhost:5432/e_shop_db'),
         conn_max_age=600,
         ssl_require=config('DATABASE_SSL', default=False, cast=bool),
     )
